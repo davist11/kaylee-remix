@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-white;
+        @apply text-black;
+        @apply font-base;
+    }
+
+    img {
+        @apply block;
+    }
+}
+
+@layer components {
+    .rich-text > :first-child {
+        @apply mt-0;
+    }
+
+    .rich-text > :last-child {
+        @apply mb-0;
+    }
+
+    .rich-text p {
+        @apply my-16;
+    }
+}
