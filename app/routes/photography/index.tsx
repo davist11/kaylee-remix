@@ -7,6 +7,8 @@ import { GET_PHOTOGRAPHY } from '~/graphql/photography'
 
 import Image from '~/components/Image'
 import { useState } from 'react'
+import Loader from '~/components/Loader'
+import FocusTrap from 'focus-trap-react'
 
 type Asset = {
     url: string;
@@ -40,20 +42,33 @@ export default function DesignEntry() {
         imagesCollection: { items: images },
     } = entry
     const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [activeImage, setActiveImage] = useState(null)
+    const [activeIndex, setActiveIndex] = useState<number|null>(null)
 
     const handleClick = (e: any, index: number) => {
         e.preventDefault()
 
-        // TODO setup focus trap
         setModalIsOpen(true)
-        setActiveImage(images[index])
+        setActiveIndex(index)
     }
 
     const handleClose = () => {
-        // TODO return focus
+        // TODO esc to close
         setModalIsOpen(false)
-        setActiveImage(null)
+        setActiveIndex(null)
+    }
+
+    const handlePrevious = () => {
+        // TODO arrows to navigate?
+        if (activeIndex === null) return
+
+        setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1)
+    }
+
+    const handleNext = () => {
+        // TODO arrows to navigate?
+        if (activeIndex === null) return
+
+        setActiveIndex(activeIndex === images.length - 1 ? 0 : activeIndex + 1)
     }
 
     return (
@@ -73,23 +88,45 @@ export default function DesignEntry() {
                 ))}
             </div>
 
-            {modalIsOpen && activeImage && (
-                <div className="fixed top-0 left-0 h-screen w-screen bg-black/75">
-                    <div className="absolute top-0 left-0 h-full w-full">
-                        {/* TODO add loader */}
-                        <Image
-                            url={activeImage.url}
-                            alt={activeImage.title}
-                            className="h-full object-contain mx-auto"
-                        />
+            {modalIsOpen && activeIndex !== null && (
+                <FocusTrap>
+                    <div className="fixed top-0 left-0 h-screen w-screen bg-black/75">
+                        <div className="absolute flex items-center justify-center top-0 left-0 h-full w-full">
+                            <div className="absolute z-1 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                                <Loader />
+                            </div>
 
-                        {/* TODO add previous and next buttons */}
+                            <div className="h-full relative z-2">
+                                <Image
+                                    url={images[activeIndex].url}
+                                    alt={images[activeIndex].title}
+                                    className="h-full object-contain"
+                                />
+                            </div>
 
-                        <button onClick={handleClose} className="bg-pink absolute top-0 right-0">
-                            Close
-                        </button>
+                            <button
+                                onClick={handlePrevious}
+                                className="bg-pink absolute top-1/2 -translate-y-1/2 left-0 z-3"
+                            >
+                                Previous
+                            </button>
+
+                            <button
+                                onClick={handleNext}
+                                className="bg-pink absolute top-1/2 -translate-y-1/2 right-0 z-3"
+                            >
+                                Next
+                            </button>
+
+                            <button
+                                onClick={handleClose}
+                                className="bg-pink absolute top-0 right-0 z-3"
+                            >
+                                Close
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </FocusTrap>
             )}
         </div>
     )

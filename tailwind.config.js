@@ -32,6 +32,11 @@ module.exports = {
             md: '1.25rem',
             lg: '1.875rem',
         },
+        zIndex: {
+            1: 1,
+            2: 2,
+            3: 3,
+        },
     },
     plugins: [],
 }
