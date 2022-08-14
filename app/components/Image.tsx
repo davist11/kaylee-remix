@@ -22,7 +22,7 @@ export default function Image({ url, alt, width, height, className }: ImageProps
                 auto: 'format',
                 fit: 'crop',
             }}
-            htmlAttributes={{ alt, className }}
+            htmlAttributes={{ alt, class: className }}
         />
     )
 }
