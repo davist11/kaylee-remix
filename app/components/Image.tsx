@@ -18,11 +18,12 @@ export default function Image({ url, alt, width, height, className }: ImageProps
             src={src}
             width={width}
             height={height}
+            className={className}
             imgixParams={{
                 auto: 'format',
                 fit: 'crop',
             }}
-            htmlAttributes={{ alt, class: className }}
+            htmlAttributes={{ alt }}
         />
     )
 }

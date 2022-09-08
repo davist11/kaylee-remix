@@ -45,14 +45,14 @@ export default function Index() {
             <h1 className="sr-only">{title}</h1>
 
             <div className="max-w-1340 mx-auto px-32">
-                <ul className="grid grid-cols-3 gap-16">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
                     {projects.filter(item => item.previewImage !== null).map(({ title, slug, previewImage }) => {
                         const imageUrl = previewImage?.url
 
                         return (
                             <li key={slug}>
                                 <Link to={`/design/${slug}`} className="block">
-                                    <Image url={imageUrl} alt={title} width={415} height={265} />
+                                    <Image url={imageUrl} alt={title} width={830} height={530} />
                                 </Link>
                             </li>
                         )

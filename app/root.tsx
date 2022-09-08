@@ -49,7 +49,6 @@ export default function App() {
                 <Links />
             </head>
             <body>
-                {/* TODO fix this */}
                 <SkipLink />
 
                 <Header />
@@ -98,6 +97,7 @@ export function CatchBoundary() {
                     tabIndex={-1}
                     className="outline-none"
                 >
+                    Error: {caught.statusText}
                     {/* <CatchError errorText={caught.statusText} /> */}
                 </main>
 
@@ -137,6 +137,7 @@ export function ErrorBoundary({ error }: ErrorBoundaryProps) {
                     tabIndex={-1}
                     className="outline-none"
                 >
+                    Error: {errorText}
                     {/* <CatchError errorText={errorText} /> */}
                 </main>
 

@@ -75,15 +75,15 @@ export default function DesignEntry() {
         <div className="max-w-1340 mx-auto px-32">
             <h1 className="sr-only">{title}</h1>
 
-            <div className="columns-2">
+            <div className="lg:columns-2">
                 {images.map(({ url, title }, index) => (
                     <a
                         href={url}
                         key={url}
-                        className="block mb-64"
+                        className="block mb-32 lg:mb-64"
                         onClick={(e) => handleClick(e, index)}
                     >
-                        <Image url={url} alt={title} width={600} />
+                        <Image url={url} alt={title} width={1000} />
                     </a>
                 ))}
             </div>

@@ -1,10 +1,12 @@
 export default function SkipLink() {
     return (
-        <a
-            href="#content"
-            className="sr-only focus:sr-undo-absolute p-8 bg-black text-white"
-        >
-            Skip to Content
-        </a>
+        <div className="absolute top-0 left-0">
+            <a
+                href="#content"
+                className="sr-only focus:not-sr-only block !p-8 bg-black text-white"
+            >
+                Skip to Content
+            </a>
+        </div>
     )
 }

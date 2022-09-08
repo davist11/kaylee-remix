@@ -73,8 +73,8 @@ export default function DesignEntry() {
     const { title, description, imagesCollection: {images} } = entry
 
     return (
-        <div className="max-w-1340 mx-auto px-32 flex flex-row-reverse">
-            <div className="w-1/3 pl-32">
+        <div className="max-w-1340 mx-auto px-32 lg:flex lg:flex-row-reverse">
+            <div className="mb-64 lg:mb-0 lg:w-1/3 lg:pl-32">
                 <h1 className="text-lg font-semibold mb-16">{title}</h1>
 
                 {description ? (
@@ -93,7 +93,7 @@ export default function DesignEntry() {
 
                     <Link
                         to={nextProject.url}
-                        className="flex items-center pl-8"
+                        className="flex items-center pl-8 text-right"
                     >
                         <span>{nextProject.title}</span>
 
@@ -104,10 +104,10 @@ export default function DesignEntry() {
                 </div>
             </div>
 
-            <div className="w-2/3">
+            <div className="lg:w-2/3">
                 {images.map(({ url, title }) => (
                     <div key={url} className="mb-24">
-                        <Image url={url} alt={title} width={860} />
+                        <Image url={url} alt={title} width={1024} />
                     </div>
                 ))}
             </div>
