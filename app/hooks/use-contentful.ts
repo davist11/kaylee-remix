@@ -15,7 +15,6 @@ export async function useContentful({
     variables = {}
 }: UseContentfulProps): Promise<any> {
     const isPreviewRequest = isPreview(request)
-    // TODO from env vars
     const authToken = isPreviewRequest ? process.env.CONTENTFUL_PREVIEW_TOKEN : process.env.CONTENTFUL_TOKEN
 
     const client = useGqlClient(authToken)

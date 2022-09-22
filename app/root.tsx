@@ -14,6 +14,7 @@ import styles from './tailwind.css'
 import SkipLink from './components/SkipLink'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Error from './components/Error'
 
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
@@ -97,8 +98,7 @@ export function CatchBoundary() {
                     tabIndex={-1}
                     className="outline-none"
                 >
-                    Error: {caught.statusText}
-                    {/* <CatchError errorText={caught.statusText} /> */}
+                    <Error />
                 </main>
 
                 <Footer />
@@ -137,8 +137,9 @@ export function ErrorBoundary({ error }: ErrorBoundaryProps) {
                     tabIndex={-1}
                     className="outline-none"
                 >
-                    Error: {errorText}
-                    {/* <CatchError errorText={errorText} /> */}
+                    <div className="max-w-1340 mx-auto px-32">
+                        Error: {errorText}
+                    </div>
                 </main>
 
                 <Footer />
