@@ -44,14 +44,24 @@ export default function DesignEntry() {
     const imageUrl = image?.url
 
     return (
-        <div>
-            <h1>{title}</h1>
+        <div className="max-w-1340 mx-auto px-32 md:flex md:flex-row-reverse">
+            <div className="mb-64 md:mb-0 md:w-1/2 md:pl-32">
+                <h1 className="text-lg font-semibold mb-16">{title}</h1>
 
-            {imageUrl ? <Image url={imageUrl} /> : null}
+                {content ? (
+                    <div className="rich-text">
+                        {documentToReactComponents(content.json)}
+                    </div>
+                ) : null}
+            </div>
 
-            {content ? (
-                <div className="rich-text">
-                    {documentToReactComponents(content.json)}
+            {imageUrl ? (
+                <div className="md:w-1/2">
+                    <Image
+                        url={imageUrl}
+                        alt="Photo of Kaylee Davis"
+                        width={1276}
+                    />
                 </div>
             ) : null}
         </div>

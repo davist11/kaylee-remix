@@ -12,6 +12,12 @@
     img {
         @apply block;
     }
+
+    svg {
+        @apply block;
+        @apply h-full;
+        @apply w-full;
+    }
 }
 
 @layer components {
