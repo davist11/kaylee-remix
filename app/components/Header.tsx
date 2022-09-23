@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
 import cx from "classnames";
 import { useState } from "react";
+import FocusTrap from 'focus-trap-react'
 
 import Logo from '~/components/svgs/Logo'
 import Menu from '~/components/svgs/Menu'
@@ -45,11 +46,21 @@ export default function Header() {
                         <Logo />
                     </div>
                 </Link>
-
-                <button
-                    className="md:hidden"
-                    onClick={toggleMobileNav}
-                >
+                <nav className="mdd:hidden w-[330px]">
+                    <ul className="uppercase flex items-center justify-between">
+                        {links.map(({ url, label }) => (
+                            <li key={url}>
+                                <Link
+                                    to={url}
+                                    className="transition-all hover:font-bold block"
+                                >
+                                    {label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                <button className="md:hidden" onClick={toggleMobileNav}>
                     <span className="sr-only">Menu</span>
 
                     <Menu />
@@ -57,18 +68,19 @@ export default function Header() {
 
                 <div
                     className={cx(
-                        'mdd:fixed mdd:inset-0 mdd:bg-white mdd:z-3 mdd:flex mdd:items-center mdd:text-center mdd:text-lg mdd:transition-all',
+                        'fixed inset-0 bg-white z-3 flex items-center text-center text-lg transition-all md:hidden',
                         {
-                            'mdd:opacity-0 mdd:invisible': !isOpen,
-                            'mdd:opacity-100 mdd:visible': isOpen,
+                            'opacity-0 invisible': !isOpen,
+                            'opacity-100 visible': isOpen,
                         }
                     )}
                 >
-                    <div className="absolute top-0 left-0 w-full px-32 pt-48 flex justify-between items-center md:hidden">
-                        <div className="w-[72px] h-[52px]">
-                            <Logo />
-                        </div>
+                    <div className="absolute top-0 left-0 w-full px-32 pt-48 flex justify-between items-center">
+                        <Link to="/" className="block w-[72px] h-[52px]">
+                            <span className="sr-only">Kaylee Davis</span>
 
+                            <Logo />
+                        </Link>
 
                         <button onClick={toggleMobileNav}>
                             <span className="sr-only">Close</span>
@@ -77,13 +89,17 @@ export default function Header() {
                         </button>
                     </div>
 
-                    <nav className="w-full md:w-[330px]">
-                        <ul className="uppercase md:flex md:items-center md:justify-between">
+                    <nav className="w-full">
+                        <ul className="uppercase">
                             {links.map(({ url, label }) => (
-                                <li key={url} className="mdd:my-48 mdd:mx-8">
+                                <li
+                                    key={url}
+                                    className="my-48 mx-8"
+                                >
                                     <Link
                                         to={url}
                                         className="transition-all hover:font-bold block"
+                                        onClick={toggleMobileNav}
                                     >
                                         {label}
                                     </Link>
