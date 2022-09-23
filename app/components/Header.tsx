@@ -63,7 +63,9 @@ export default function Header() {
                 <button className="md:hidden" onClick={toggleMobileNav}>
                     <span className="sr-only">Menu</span>
 
-                    <Menu />
+                    <span className="block w-[37px] h-[31px]">
+                        <Menu />
+                    </span>
                 </button>
 
                 <div
@@ -92,10 +94,7 @@ export default function Header() {
                     <nav className="w-full">
                         <ul className="uppercase">
                             {links.map(({ url, label }) => (
-                                <li
-                                    key={url}
-                                    className="my-48 mx-8"
-                                >
+                                <li key={url} className="my-48 mx-8">
                                     <Link
                                         to={url}
                                         className="transition-all hover:font-bold block"
