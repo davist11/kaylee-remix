@@ -3,6 +3,7 @@ import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
 import FocusTrap from 'focus-trap-react'
+import cx from 'classnames'
 
 import { useContentful } from '~/hooks/use-contentful'
 import { GET_PHOTOGRAPHY } from '~/graphql/photography'
@@ -44,18 +45,21 @@ export default function DesignEntry() {
         imagesCollection: { items: images },
     } = entry
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [isLoadingImage, setIsLoadingImage] = useState(false)
     const [activeIndex, setActiveIndex] = useState<number|null>(null)
 
     const handleClick = (e: any, index: number) => {
         e.preventDefault()
 
         setModalIsOpen(true)
+        setIsLoadingImage(true)
         setActiveIndex(index)
     }
 
     const handleClose = () => {
         // TODO esc to close
         setModalIsOpen(false)
+        setIsLoadingImage(false)
         setActiveIndex(null)
     }
 
@@ -63,6 +67,7 @@ export default function DesignEntry() {
         // TODO arrows to navigate?
         if (activeIndex === null) return
 
+        setIsLoadingImage(true)
         setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1)
     }
 
@@ -70,7 +75,12 @@ export default function DesignEntry() {
         // TODO arrows to navigate?
         if (activeIndex === null) return
 
+        setIsLoadingImage(true)
         setActiveIndex(activeIndex === images.length - 1 ? 0 : activeIndex + 1)
+    }
+
+    const handleImageLoaded = () => {
+        setIsLoadingImage(false)
     }
 
     return (
@@ -94,15 +104,18 @@ export default function DesignEntry() {
                 <FocusTrap>
                     <div className="fixed top-0 left-0 h-screen w-screen bg-black/75">
                         <div className="absolute flex items-center justify-center top-0 left-0 h-full w-full">
-                            <div className="absolute z-1 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                            {isLoadingImage ? <div className="absolute z-1 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                                 <Loader />
-                            </div>
+                            </div> : null}
 
                             <div className="h-full relative z-2">
                                 <Image
                                     url={images[activeIndex].url}
                                     alt={images[activeIndex].title}
-                                    className="h-full object-contain"
+                                    className={cx('h-full object-contain transition-opacity', {
+                                        'opacity-0': isLoadingImage,
+                                    })}
+                                    handleLoad={handleImageLoaded}
                                 />
                             </div>
 

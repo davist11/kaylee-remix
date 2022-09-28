@@ -7,8 +7,10 @@ type ImageProps = {
     width?: number
     height?: number
     className?: string
+    handleLoad?: () => void
 }
-export default function Image({ url, alt, width, height, className }: ImageProps) {
+
+export default function Image({ url, alt, width, height, className, handleLoad }: ImageProps) {
     const src = url.replace(
         'https://images.ctfassets.net/ku95fq526puv/',
         'https://kaylee-davis.imgix.net/'
@@ -24,7 +26,7 @@ export default function Image({ url, alt, width, height, className }: ImageProps
                 auto: 'format',
                 fit: 'crop',
             }}
-            htmlAttributes={{ alt }}
+            htmlAttributes={{ alt, onLoad: handleLoad }}
         />
     )
 }
