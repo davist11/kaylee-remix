@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react";
-import cx from "classnames";
 import { useState } from "react";
-import FocusTrap from 'focus-trap-react'
+import { Transition } from '@headlessui/react'
 
 import Logo from '~/components/svgs/Logo'
 import Menu from '~/components/svgs/Menu'
@@ -31,12 +30,10 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMobileNav = () => {
-        // TODO focus trap?
         setIsOpen(!isOpen)
     }
 
     return (
-        // TODO update vertical padding
         <header className="max-w-1340 mx-auto px-32 pt-48 pb-64">
             <div className="flex justify-between items-center">
                 <Link to="/" className="block">
@@ -68,14 +65,15 @@ export default function Header() {
                     </span>
                 </button>
 
-                <div
-                    className={cx(
-                        'fixed inset-0 bg-white z-3 flex items-center text-center text-lg transition-all md:hidden',
-                        {
-                            'opacity-0 invisible': !isOpen,
-                            'opacity-100 visible': isOpen,
-                        }
-                    )}
+                <Transition
+                    show={isOpen}
+                    enter="transition-opacity duration-75"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="transition-opacity duration-150"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    className="md:hidden fixed inset-0 bg-white z-3 flex items-center text-center text-lg"
                 >
                     <div className="absolute top-0 left-0 w-full px-32 pt-48 flex justify-between items-center">
                         <Link to="/" className="block w-[72px] h-[52px]">
@@ -106,7 +104,7 @@ export default function Header() {
                             ))}
                         </ul>
                     </nav>
-                </div>
+                </Transition>
             </div>
         </header>
     )

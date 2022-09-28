@@ -85,7 +85,7 @@ export default function DesignEntry() {
 
                 <div className="flex items-center justify-between mt-48 font-semibold">
                     <Link to="/" className="flex items-center pr-8">
-                        <span className="mr-8">
+                        <span className="mr-8 w-[12px] h-[21px]">
                             <Caret />
                         </span>
                         <span>All Projects</span>
@@ -97,7 +97,7 @@ export default function DesignEntry() {
                     >
                         <span>{nextProject.title}</span>
 
-                        <span className="ml-8 rotate-180">
+                        <span className="ml-8 rotate-180  w-[12px] h-[21px]">
                             <Caret />
                         </span>
                     </Link>

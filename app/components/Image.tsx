@@ -1,4 +1,5 @@
 import Imgix from "react-imgix"
+import cx from "classnames"
 
 type ImageProps = {
     url: string
@@ -18,7 +19,7 @@ export default function Image({ url, alt, width, height, className }: ImageProps
             src={src}
             width={width}
             height={height}
-            className={className}
+            className={cx(className, 'bg-black/10')}
             imgixParams={{
                 auto: 'format',
                 fit: 'crop',
