@@ -1,19 +1,23 @@
 export default function Close() {
     return (
         <svg
-            width="28"
-            height="27"
-            viewBox="0 0 28 27"
+            width="46"
+            height="46"
+            viewBox="0 0 46 46"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
-                d="M2 25.7487L26.7487 0.999997"
+                d="M44 44L23 23L44 2"
+                strokeWidth="4"
                 strokeLinecap="round"
+                strokeLinejoin="round"
             />
             <path
-                d="M26 25.7487L1.25126 0.999997"
+                d="M2 2L23 23L2 44"
+                strokeWidth="4"
                 strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     )

@@ -126,7 +126,7 @@ export default function DesignEntry() {
 
                             <button
                                 onClick={handleClose}
-                                className="absolute top-16 right-16 z-3 w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] stroke-white"
+                                className="absolute top-16 right-16 z-3 w-[21px] h-[21px] lg:w-[42px] lg:h-[42px] stroke-white"
                             >
                                 <span className="sr-only">Close</span>
 

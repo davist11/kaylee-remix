@@ -60,7 +60,7 @@ export default function Header() {
                 <button className="md:hidden" onClick={toggleMobileNav}>
                     <span className="sr-only">Menu</span>
 
-                    <span className="block w-[37px] h-[31px]">
+                    <span className="block w-[35px] h-[42px]">
                         <Menu />
                     </span>
                 </button>
@@ -82,7 +82,7 @@ export default function Header() {
                             <Logo />
                         </Link>
 
-                        <button onClick={toggleMobileNav} className="w-[28px] h-[28px] stroke-black">
+                        <button onClick={toggleMobileNav} className="w-[42px] h-[42px] stroke-black">
                             <span className="sr-only">Close</span>
 
                             <Close />
