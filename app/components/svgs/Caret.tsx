@@ -9,7 +9,6 @@ export default function Caret() {
         >
             <path
                 d="M10 19L2 10.5L10 2"
-                stroke="black"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"

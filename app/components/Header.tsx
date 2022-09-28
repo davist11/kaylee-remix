@@ -82,7 +82,7 @@ export default function Header() {
                             <Logo />
                         </Link>
 
-                        <button onClick={toggleMobileNav} className="w-[28px] h-[28px]">
+                        <button onClick={toggleMobileNav} className="w-[28px] h-[28px] stroke-black">
                             <span className="sr-only">Close</span>
 
                             <Close />

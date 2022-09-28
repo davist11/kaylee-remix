@@ -1,14 +1,16 @@
 import { json } from '@remix-run/node'
 import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
+import { useState } from 'react'
+import FocusTrap from 'focus-trap-react'
 
 import { useContentful } from '~/hooks/use-contentful'
 import { GET_PHOTOGRAPHY } from '~/graphql/photography'
 
 import Image from '~/components/Image'
-import { useState } from 'react'
 import Loader from '~/components/Loader'
-import FocusTrap from 'focus-trap-react'
+import Close from '~/components/svgs/Close'
+import Caret from '~/components/svgs/Caret'
 
 type Asset = {
     url: string;
@@ -106,23 +108,29 @@ export default function DesignEntry() {
 
                             <button
                                 onClick={handlePrevious}
-                                className="bg-pink absolute top-1/2 -translate-y-1/2 left-0 z-3"
+                                className="absolute top-1/2 -translate-y-1/2 left-16 z-3 w-[12px] h-[21px] lg:w-[24px] lg:h-[42px] stroke-white"
                             >
-                                Previous
+                                <span className="sr-only">Previous</span>
+
+                                <Caret />
                             </button>
 
                             <button
                                 onClick={handleNext}
-                                className="bg-pink absolute top-1/2 -translate-y-1/2 right-0 z-3"
+                                className="absolute top-1/2 -translate-y-1/2 right-16 z-3 w-[12px] h-[21px] lg:w-[24px] lg:h-[42px] stroke-white rotate-180"
                             >
-                                Next
+                                <span className="sr-only">Next</span>
+
+                                <Caret />
                             </button>
 
                             <button
                                 onClick={handleClose}
-                                className="bg-pink absolute top-0 right-0 z-3"
+                                className="absolute top-16 right-16 z-3 w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] stroke-white"
                             >
-                                Close
+                                <span className="sr-only">Close</span>
+
+                                <Close />
                             </button>
                         </div>
                     </div>
