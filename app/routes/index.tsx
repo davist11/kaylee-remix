@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node'
-import type { LoaderFunction } from '@remix-run/node'
+import type { MetaFunction, LoaderFunction } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 
 import { useContentful } from '~/hooks/use-contentful'
@@ -21,6 +21,11 @@ type Entry = {
         items: Project[];
     }
 }
+
+// export const meta: MetaFunction = () => ({
+//     description: 'TODO',
+//     'og:image': 'TODO',
+// })
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {

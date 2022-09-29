@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node'
-import type { LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
@@ -21,6 +21,12 @@ type LoaderDataReturn = {
         }
     }
 }
+
+export const meta: MetaFunction = ({ data }) => ({
+    title: 'About Me | Kaylee Davis | Graphic Designer',
+    // description: 'TODO',
+    'og:image': data?.entry?.image?.url,
+})
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {

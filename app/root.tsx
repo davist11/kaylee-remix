@@ -18,7 +18,7 @@ import Error from './components/Error'
 
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
-    title: 'Kaylee Davis Portfolio',
+    title: 'Kaylee Davis | Graphic Designer',
     viewport: 'width=device-width,initial-scale=1',
 })
 

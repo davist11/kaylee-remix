@@ -8,6 +8,9 @@ export const GET_PROJECT = gql`
                 description {
                     json
                 }
+                previewImage {
+                    url
+                }
                 imagesCollection {
                     images: items {
                         url

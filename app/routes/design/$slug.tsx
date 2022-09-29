@@ -1,12 +1,14 @@
 import { json } from "@remix-run/node"
-import type { LoaderFunction } from "@remix-run/node"
+import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { Link, useLoaderData } from "@remix-run/react"
 
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { Document } from '@contentful/rich-text-types'
 
 import { useContentful } from "~/hooks/use-contentful"
 import { useProjectList } from '~/hooks/use-project-list'
+import { useSummary } from "~/hooks/use-summary"
 import { GET_PROJECT } from "~/graphql/projects"
 
 import Image from '~/components/Image'
@@ -29,11 +31,34 @@ type LoaderDataReturn = {
         description: {
             json: Document
         }
+        previewImage: {
+            url: string
+        }
         imagesCollection: {
             images: Asset[]
         }
     }
     nextProject: Project
+}
+
+export const meta: MetaFunction = ({ data }) => {
+    const { entry } = data
+
+    if (!entry) {
+        return {
+            title: 'Design | Kaylee Davis | Graphic Designer',
+            // description: 'TODO',
+            // 'og:image': 'TODO',
+        }
+    }
+
+    const description = entry?.description?.json ? useSummary(documentToHtmlString(entry.description.json), 160) : null
+
+    return {
+        title: `${entry.title} | Kaylee Davis | Graphic Designer`,
+        description,
+        'og:image': entry?.previewImage?.url ?? '', // TODO get fallback
+    }
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {

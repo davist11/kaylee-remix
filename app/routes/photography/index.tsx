@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node'
-import type { LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
 import FocusTrap from 'focus-trap-react'
@@ -26,6 +26,12 @@ type LoaderDataReturn = {
         }
     }
 }
+
+export const meta: MetaFunction = () => ({
+    title: 'Photography | Kaylee Davis | Graphic Designer'
+    // description: 'TODO',
+    // 'og:image': 'TODO',
+})
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {
