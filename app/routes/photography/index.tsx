@@ -98,7 +98,7 @@ export default function DesignEntry() {
                     <a
                         href={url}
                         key={url}
-                        className="block mb-32 lg:mb-64"
+                        className="block mb-32 lg:mb-16"
                         onClick={(e) => handleClick(e, index)}
                     >
                         <Image url={url} alt={title} width={1000} />
