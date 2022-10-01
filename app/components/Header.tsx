@@ -76,13 +76,20 @@ export default function Header() {
                     className="md:hidden fixed inset-0 bg-white z-3 flex items-center text-center text-lg"
                 >
                     <div className="absolute top-0 left-0 w-full px-32 pt-48 flex justify-between items-center">
-                        <Link to="/" className="block w-[72px] h-[52px]">
+                        <Link
+                            to="/"
+                            className="block w-[72px] h-[52px]"
+                            onClick={toggleMobileNav}
+                        >
                             <span className="sr-only">Kaylee Davis</span>
 
                             <Logo />
                         </Link>
 
-                        <button onClick={toggleMobileNav} className="w-[42px] h-[42px] stroke-black">
+                        <button
+                            onClick={toggleMobileNav}
+                            className="w-[42px] h-[42px] stroke-black"
+                        >
                             <span className="sr-only">Close</span>
 
                             <Close />
