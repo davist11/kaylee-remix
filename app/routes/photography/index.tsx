@@ -1,7 +1,7 @@
 import { json } from '@remix-run/node'
 import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FocusTrap from 'focus-trap-react'
 import cx from 'classnames'
 
@@ -54,6 +54,32 @@ export default function DesignEntry() {
     const [isLoadingImage, setIsLoadingImage] = useState(false)
     const [activeIndex, setActiveIndex] = useState<number|null>(null)
 
+    useEffect(() => {
+        if (modalIsOpen) {
+            window.addEventListener('keydown', handleKeyDown)
+        } else {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [modalIsOpen])
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        switch (e.key) {
+            case 'Escape':
+                handleClose()
+                break
+
+            case 'ArrowLeft':
+                handlePrevious()
+                break
+
+            case 'ArrowRight':
+                handleNext()
+                break
+        }
+    }
+
     const handleClick = (e: any, index: number) => {
         e.preventDefault()
 
@@ -63,26 +89,27 @@ export default function DesignEntry() {
     }
 
     const handleClose = () => {
-        // TODO esc to close
         setModalIsOpen(false)
         setIsLoadingImage(false)
         setActiveIndex(null)
     }
 
     const handlePrevious = () => {
-        // TODO arrows to navigate?
         if (activeIndex === null) return
 
         setIsLoadingImage(true)
-        setActiveIndex(activeIndex === 0 ? images.length - 1 : activeIndex - 1)
+        setActiveIndex((prevActiveIndex) => (prevActiveIndex === 0 || prevActiveIndex === null) ? images.length - 1 : prevActiveIndex - 1)
     }
 
     const handleNext = () => {
-        // TODO arrows to navigate?
         if (activeIndex === null) return
 
         setIsLoadingImage(true)
-        setActiveIndex(activeIndex === images.length - 1 ? 0 : activeIndex + 1)
+        setActiveIndex((prevActiveIndex) =>
+            (prevActiveIndex === images.length - 1 || prevActiveIndex === null)
+                ? 0
+                : prevActiveIndex + 1
+        )
     }
 
     const handleImageLoaded = () => {
