@@ -35,6 +35,10 @@
         @apply my-16;
     }
 
+    .rich-text a:hover {
+        @apply underline;
+    }
+
     /* Loading animation */
     @keyframes ldio-znvg151zyd {
         0% {
