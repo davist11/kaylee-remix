@@ -23,7 +23,7 @@ type Entry = {
 }
 
 export const meta: MetaFunction = () => ({
-    // description: 'TODO',
+    description: `Kaylee Davis’ portfolio. Layout design, logo creation, hero imagery, and photography.`,
     'og:image': `https://images.ctfassets.net/ku95fq526puv/7IB2EKl8C2nHJV0TxOI8Q7/d0878aaf5c9c697d890bbe5ef4f01d99/default.png`,
 })
 
