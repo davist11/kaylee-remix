@@ -1,6 +1,6 @@
 import { json } from '@remix-run/node'
 import type { MetaFunction, LoaderFunction } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { Link, useLoaderData, useLocation } from '@remix-run/react'
 
 import { useContentful } from '~/hooks/use-contentful'
 import { GET_HOMEPAGE } from '~/graphql/homepage'
@@ -22,10 +22,10 @@ type Entry = {
     }
 }
 
-// export const meta: MetaFunction = () => ({
-//     description: 'TODO',
-//     'og:image': 'TODO',
-// })
+export const meta: MetaFunction = () => ({
+    // description: 'TODO',
+    'og:image': `https://images.ctfassets.net/ku95fq526puv/7IB2EKl8C2nHJV0TxOI8Q7/d0878aaf5c9c697d890bbe5ef4f01d99/default.png`,
+})
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {

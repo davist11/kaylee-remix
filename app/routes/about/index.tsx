@@ -24,7 +24,7 @@ type LoaderDataReturn = {
 
 export const meta: MetaFunction = ({ data }) => ({
     title: 'About Me | Kaylee Davis | Graphic Designer',
-    // description: 'TODO',
+    description: `Hi, I’m Kaylee. I started creating at an early age and found my love of graphic design in high school. See my work, photography, and contact me via LinkedIn or email for inquiries.`,
     'og:image': data?.entry?.image?.url,
 })
 

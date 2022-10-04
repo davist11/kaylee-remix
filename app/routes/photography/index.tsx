@@ -28,9 +28,9 @@ type LoaderDataReturn = {
 }
 
 export const meta: MetaFunction = () => ({
-    title: 'Photography | Kaylee Davis | Graphic Designer'
-    // description: 'TODO',
-    // 'og:image': 'TODO',
+    title: 'Photography | Kaylee Davis | Graphic Designer',
+    description: `Outside of design, I enjoy taking sports, travel, and portrait photography. See my photography portfolio here.`,
+    'og:image': 'https://images.ctfassets.net/ku95fq526puv/3qz1sDxmgaCjJBS3PTiXbG/86b93d7d039eef6dc6fb3f45bcb9b9ae/photography.jpg',
 })
 
 export const loader: LoaderFunction = async ({ request, params }) => {
