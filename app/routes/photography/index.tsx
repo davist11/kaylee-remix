@@ -125,29 +125,36 @@ export default function DesignEntry() {
                     <a
                         href={url}
                         key={url}
-                        className="block mb-32 lg:mb-16"
+                        className="block mb-32 lg:mb-16 relative overflow-hidden group"
                         onClick={(e) => handleClick(e, index)}
                     >
                         <Image url={url} alt={title} width={1000} />
+
+                        <div className="absolute top-0 left-0 h-full w-full bg-black/50 transition-opacity opacity-0 group-hover:opacity-100"></div>
                     </a>
                 ))}
             </div>
 
             {modalIsOpen && activeIndex !== null && (
                 <FocusTrap>
-                    <div className="fixed top-0 left-0 h-screen w-screen bg-black/75">
+                    <div className="fixed z-2 top-0 left-0 h-screen w-screen bg-black/75">
                         <div className="absolute flex items-center justify-center top-0 left-0 h-full w-full">
-                            {isLoadingImage ? <div className="absolute z-1 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                                <Loader />
-                            </div> : null}
+                            {isLoadingImage ? (
+                                <div className="absolute z-1 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                                    <Loader />
+                                </div>
+                            ) : null}
 
                             <div className="h-full relative z-2">
                                 <Image
                                     url={images[activeIndex].url}
                                     alt={images[activeIndex].title}
-                                    className={cx('h-full object-contain transition-opacity', {
-                                        'opacity-0': isLoadingImage,
-                                    })}
+                                    className={cx(
+                                        'h-full object-contain transition-opacity',
+                                        {
+                                            'opacity-0': isLoadingImage,
+                                        }
+                                    )}
                                     handleLoad={handleImageLoaded}
                                 />
                             </div>
