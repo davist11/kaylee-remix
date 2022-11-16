@@ -36,7 +36,7 @@ export default function ScrollToTop() {
             onClick={scrollUp}
         >
             <span className="sr-only">Scroll to top</span>
-            <span className="block  w-[12px] h-[21px]">
+            <span className="block w-[12px] h-[21px]">
                 <Caret />
             </span>
         </button>
