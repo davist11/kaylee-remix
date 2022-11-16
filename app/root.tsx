@@ -15,6 +15,7 @@ import SkipLink from './components/SkipLink'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Error from './components/Error'
+import ScrollToTop from './components/ScrollToTop'
 
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
@@ -93,10 +94,11 @@ export default function App() {
 
                 <Footer />
 
+                <ScrollToTop />
+
                 <ScrollRestoration />
                 <Scripts />
 
-                {/* TODO only dev */}
                 <LiveReload />
             </body>
         </html>
