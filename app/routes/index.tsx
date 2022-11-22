@@ -59,7 +59,7 @@ export default function Index() {
                                 <Link to={`/design/${slug}`} className="block relative overflow-hidden group">
                                     <Image url={imageUrl} alt="" width={830} height={530} />
 
-                                    <div className="absolute top-0 left-0 h-full w-full bg-black/50 text-white flex items-center justify-center text-lg p-16 text-center transition-opacity opacity-0 group-hover:opacity-100">
+                                    <div className="absolute top-0 left-0 h-full w-full bg-black/50 text-white font-semibold flex items-center justify-center text-lg p-16 text-center transition-opacity opacity-0 group-hover:opacity-100">
                                         {title}
                                     </div>
                                 </Link>

@@ -27,7 +27,7 @@ export default function ScrollToTop() {
     return (
         <button
             className={cx(
-                'fixed z-1 bottom-16 right-16 transition-all w-48 h-48 bg-black hover:bg-black/50 rounded-full stroke-white rotate-90 flex items-center justify-center',
+                'fixed z-1 bottom-16 right-16 transition-all w-32 h-32 bg-black hover:bg-black/50 rounded-full stroke-white rotate-90 flex items-center justify-center',
                 {
                     'opacity-0 invisible': !isVisible,
                     'opacity-100 visible': isVisible,
@@ -36,7 +36,7 @@ export default function ScrollToTop() {
             onClick={scrollUp}
         >
             <span className="sr-only">Scroll to top</span>
-            <span className="block w-[12px] h-[21px]">
+            <span className="block w-[8px] h-[18px]">
                 <Caret />
             </span>
         </button>
