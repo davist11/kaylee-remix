@@ -59,19 +59,12 @@ export default function DesignEntry() {
                         {documentToReactComponents(content.json, {
                             renderNode: {
                                 [INLINES.HYPERLINK]: (node, children) => {
-                                    let anchorAttrs = {}
+                                    const isExternalLink = node.data.uri.startsWith('http') && !node.data.uri.includes('kaylee-davis.com')
 
-                                    if (
-                                        node.data.uri.startsWith('http') &&
-                                        !node.data.uri.includes(
-                                            'kaylee-davis.com'
-                                        )
-                                    ) {
-                                        anchorAttrs = {
-                                            target: '_blank',
-                                            rel: 'noopener noreferrer',
-                                        }
-                                    }
+                                    const anchorAttrs = isExternalLink ? {
+                                        target: '_blank',
+                                        rel: 'noopener noreferrer',
+                                    } : {}
 
                                     return (
                                         <a
