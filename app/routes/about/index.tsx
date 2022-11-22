@@ -3,7 +3,7 @@ import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { Document } from '@contentful/rich-text-types'
+import { Document, INLINES } from '@contentful/rich-text-types'
 
 import { useContentful } from '~/hooks/use-contentful'
 import { GET_ABOUT } from '~/graphql/about'
@@ -56,7 +56,34 @@ export default function DesignEntry() {
 
                 {content ? (
                     <div className="rich-text">
-                        {documentToReactComponents(content.json)}
+                        {documentToReactComponents(content.json, {
+                            renderNode: {
+                                [INLINES.HYPERLINK]: (node, children) => {
+                                    let anchorAttrs = {}
+
+                                    if (
+                                        node.data.uri.startsWith('http') &&
+                                        !node.data.uri.includes(
+                                            'kaylee-davis.com'
+                                        )
+                                    ) {
+                                        anchorAttrs = {
+                                            target: '_blank',
+                                            rel: 'noopener noreferrer',
+                                        }
+                                    }
+
+                                    return (
+                                        <a
+                                            href={node.data.uri}
+                                            {...anchorAttrs}
+                                        >
+                                            {children}
+                                        </a>
+                                    )
+                                },
+                            },
+                        })}
                     </div>
                 ) : null}
             </div>
