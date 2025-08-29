@@ -2,23 +2,23 @@ import { json } from '@remix-run/node'
 import type { MetaFunction, LoaderFunction } from '@remix-run/node'
 import { Link, useLoaderData, useLocation } from '@remix-run/react'
 
-import { useContentful } from '~/hooks/use-contentful'
+import { queryContentful } from '~/lib/contentful.server'
 import { GET_HOMEPAGE } from '~/graphql/homepage'
 
 import Image from '~/components/Image'
 
 type Project = {
-    title: string;
-    slug: string;
+    title: string
+    slug: string
     previewImage: {
-        url: string;
+        url: string
     }
 }
 
 type Entry = {
     title: string
     projectsCollection: {
-        items: Project[];
+        items: Project[]
     }
 }
 
@@ -30,7 +30,7 @@ export const meta: MetaFunction = () => ({
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {
         homepageCollection: { items },
-    } = await useContentful({
+    } = await queryContentful({
         request,
         query: GET_HOMEPAGE,
         variables: {
@@ -43,7 +43,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function Index() {
     const { entry }: { entry: Entry } = useLoaderData()
-    const {title, projectsCollection: {items: projects}} = entry;
+    const {
+        title,
+        projectsCollection: { items: projects },
+    } = entry
 
     return (
         <div>
@@ -51,21 +54,31 @@ export default function Index() {
 
             <div className="max-w-1340 mx-auto px-32">
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
-                    {projects.filter(item => item.previewImage !== null).map(({ title, slug, previewImage }) => {
-                        const imageUrl = previewImage?.url
+                    {projects
+                        .filter((item) => item.previewImage !== null)
+                        .map(({ title, slug, previewImage }) => {
+                            const imageUrl = previewImage?.url
 
-                        return (
-                            <li key={slug}>
-                                <Link to={`/design/${slug}`} className="block relative overflow-hidden group">
-                                    <Image url={imageUrl} alt="" width={830} height={530} />
+                            return (
+                                <li key={slug}>
+                                    <Link
+                                        to={`/design/${slug}`}
+                                        className="block relative overflow-hidden group"
+                                    >
+                                        <Image
+                                            url={imageUrl}
+                                            alt=""
+                                            width={830}
+                                            height={530}
+                                        />
 
-                                    <div className="absolute top-0 left-0 h-full w-full bg-black/50 text-white font-semibold flex items-center justify-center text-lg p-16 text-center transition-opacity opacity-0 group-hover:opacity-100">
-                                        {title}
-                                    </div>
-                                </Link>
-                            </li>
-                        )
-                    })}
+                                        <div className="absolute top-0 left-0 h-full w-full bg-black/50 text-white font-semibold flex items-center justify-center text-lg p-16 text-center transition-opacity opacity-0 group-hover:opacity-100">
+                                            {title}
+                                        </div>
+                                    </Link>
+                                </li>
+                            )
+                        })}
                 </ul>
             </div>
         </div>

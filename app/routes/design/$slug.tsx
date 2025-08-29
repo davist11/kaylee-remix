@@ -1,28 +1,28 @@
-import { json } from "@remix-run/node"
+import { json } from '@remix-run/node'
 import type { LoaderFunction, MetaFunction } from '@remix-run/node'
-import { Link, useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from '@remix-run/react'
 
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { Document } from '@contentful/rich-text-types'
 
-import { useContentful } from "~/hooks/use-contentful"
-import { useProjectList } from '~/hooks/use-project-list'
-import { useSummary } from "~/hooks/use-summary"
-import { GET_PROJECT } from "~/graphql/projects"
+import { queryContentful } from '~/lib/contentful.server'
+import { getProjectList } from '~/lib/project-list.server'
+import { useSummary } from '~/hooks/use-summary'
+import { GET_PROJECT } from '~/graphql/projects'
 
 import Image from '~/components/Image'
 import Caret from '~/components/svgs/Caret'
 
 type Project = {
-    url: string;
-    title: string;
-    slug: string;
-};
+    url: string
+    title: string
+    slug: string
+}
 
 type Asset = {
-    url: string;
-    title: string;
+    url: string
+    title: string
 }
 
 type LoaderDataReturn = {
@@ -38,33 +38,30 @@ type LoaderDataReturn = {
             images: Asset[]
         }
     }
+    description: string | null
     nextProject: Project
 }
 
 export const meta: MetaFunction = ({ data }) => {
-    const { entry } = data
-
-    if (!entry) {
+    if (!data?.entry) {
         return {
             title: 'Design | Kaylee Davis | Graphic Designer',
-            // description: 'TODO',
-            // 'og:image': 'TODO',
         }
     }
 
-    const description = entry?.description?.json ? useSummary(documentToHtmlString(entry.description.json), 160) : null
+    const { entry, description } = data
 
     return {
         title: `${entry.title} | Kaylee Davis | Graphic Designer`,
         description,
-        'og:image': entry?.previewImage?.url ?? '', // TODO get fallback
+        'og:image': entry?.previewImage?.url ?? '',
     }
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {
         projectCollection: { items },
-    } = await useContentful({
+    } = await queryContentful({
         request,
         query: GET_PROJECT,
         variables: {
@@ -72,9 +69,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         },
     })
 
-    const projects: Project[] = await useProjectList(request).then(
-        (data) => data
-    )
+    const projects: Project[] = await getProjectList(request)
 
     const currentProjectIndex = projects.findIndex(
         (project) => project.slug === params.slug
@@ -90,12 +85,25 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         return projects[nextIndex]
     }
 
-    return json({ entry: items[0], nextProject: getNextProject() })
+    const entry = items[0]
+    const description = entry?.description?.json
+        ? useSummary(documentToHtmlString(entry.description.json), 160)
+        : null
+
+    return json({
+        entry,
+        description,
+        nextProject: getNextProject(),
+    })
 }
 
 export default function DesignEntry() {
     const { entry, nextProject }: LoaderDataReturn = useLoaderData()
-    const { title, description, imagesCollection: {images} } = entry
+    const {
+        title,
+        description,
+        imagesCollection: { images },
+    } = entry
 
     return (
         <div className="max-w-1340 mx-auto px-32 lg:flex lg:flex-row-reverse">
