@@ -5,16 +5,16 @@ import { useLoaderData } from '@remix-run/react'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Document, INLINES } from '@contentful/rich-text-types'
 
-import { useContentful } from '~/hooks/use-contentful'
+import { queryContentful } from '~/lib/contentful.server'
 import { GET_ABOUT } from '~/graphql/about'
 
 import Image from '~/components/Image'
 
 type LoaderDataReturn = {
     entry: {
-        title: string;
+        title: string
         image: {
-            url: string;
+            url: string
         }
         content: {
             json: Document
@@ -31,7 +31,7 @@ export const meta: MetaFunction = ({ data }) => ({
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {
         aboutCollection: { items },
-    } = await useContentful({
+    } = await queryContentful({
         request,
         query: GET_ABOUT,
     })
@@ -41,11 +41,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function DesignEntry() {
     const { entry }: LoaderDataReturn = useLoaderData()
-    const {
-        title,
-        image,
-        content
-    } = entry
+    const { title, image, content } = entry
 
     const imageUrl = image?.url
 
@@ -59,12 +55,18 @@ export default function DesignEntry() {
                         {documentToReactComponents(content.json, {
                             renderNode: {
                                 [INLINES.HYPERLINK]: (node, children) => {
-                                    const isExternalLink = node.data.uri.startsWith('http') && !node.data.uri.includes('kaylee-davis.com')
+                                    const isExternalLink =
+                                        node.data.uri.startsWith('http') &&
+                                        !node.data.uri.includes(
+                                            'kaylee-davis.com'
+                                        )
 
-                                    const anchorAttrs = isExternalLink ? {
-                                        target: '_blank',
-                                        rel: 'noopener noreferrer',
-                                    } : {}
+                                    const anchorAttrs = isExternalLink
+                                        ? {
+                                              target: '_blank',
+                                              rel: 'noopener noreferrer',
+                                          }
+                                        : {}
 
                                     return (
                                         <a

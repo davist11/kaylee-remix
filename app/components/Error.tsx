@@ -3,8 +3,12 @@ const images = [
     '/images/error/error-broken.jpg',
 ]
 
-export default function Error() {
-    const imageToDisplay = images[Math.floor(Math.random() * images.length)]
+type ErrorProps = {
+    imageIndex?: number
+}
+
+export default function Error({ imageIndex = 0 }: ErrorProps) {
+    const imageToDisplay = images[imageIndex]
 
     return (
         <div className="max-w-1340 mx-auto px-32">

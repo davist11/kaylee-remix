@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import FocusTrap from 'focus-trap-react'
 import cx from 'classnames'
 
-import { useContentful } from '~/hooks/use-contentful'
+import { queryContentful } from '~/lib/contentful.server'
 import { GET_PHOTOGRAPHY } from '~/graphql/photography'
 
 import Image from '~/components/Image'
@@ -14,8 +14,8 @@ import Close from '~/components/svgs/Close'
 import Caret from '~/components/svgs/Caret'
 
 type Asset = {
-    url: string;
-    title: string;
+    url: string
+    title: string
 }
 
 type LoaderDataReturn = {
@@ -30,13 +30,14 @@ type LoaderDataReturn = {
 export const meta: MetaFunction = () => ({
     title: 'Photography | Kaylee Davis | Graphic Designer',
     description: `Outside of design, I enjoy taking sports, travel, and portrait photography. See my photography portfolio here.`,
-    'og:image': 'https://images.ctfassets.net/ku95fq526puv/3qz1sDxmgaCjJBS3PTiXbG/86b93d7d039eef6dc6fb3f45bcb9b9ae/photography.jpg',
+    'og:image':
+        'https://images.ctfassets.net/ku95fq526puv/3qz1sDxmgaCjJBS3PTiXbG/86b93d7d039eef6dc6fb3f45bcb9b9ae/photography.jpg',
 })
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const {
         photographyCollection: { items },
-    } = await useContentful({
+    } = await queryContentful({
         request,
         query: GET_PHOTOGRAPHY,
     })
@@ -52,7 +53,7 @@ export default function DesignEntry() {
     } = entry
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [isLoadingImage, setIsLoadingImage] = useState(false)
-    const [activeIndex, setActiveIndex] = useState<number|null>(null)
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
     useEffect(() => {
         if (modalIsOpen) {
@@ -98,7 +99,11 @@ export default function DesignEntry() {
         if (activeIndex === null) return
 
         setIsLoadingImage(true)
-        setActiveIndex((prevActiveIndex) => (prevActiveIndex === 0 || prevActiveIndex === null) ? images.length - 1 : prevActiveIndex - 1)
+        setActiveIndex((prevActiveIndex) =>
+            prevActiveIndex === 0 || prevActiveIndex === null
+                ? images.length - 1
+                : prevActiveIndex - 1
+        )
     }
 
     const handleNext = () => {
@@ -106,7 +111,7 @@ export default function DesignEntry() {
 
         setIsLoadingImage(true)
         setActiveIndex((prevActiveIndex) =>
-            (prevActiveIndex === images.length - 1 || prevActiveIndex === null)
+            prevActiveIndex === images.length - 1 || prevActiveIndex === null
                 ? 0
                 : prevActiveIndex + 1
         )

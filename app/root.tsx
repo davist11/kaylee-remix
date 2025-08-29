@@ -67,7 +67,7 @@ export const links: LinksFunction = () => [
     {
         rel: `mask-icon`,
         href: '/safari-pinned-tab.svg',
-        color: '#ffffff'
+        color: '#ffffff',
     },
 ]
 
@@ -105,7 +105,6 @@ export default function App() {
     )
 }
 
-
 // 404
 export function CatchBoundary() {
     const caught = useCatch()
@@ -128,7 +127,7 @@ export function CatchBoundary() {
                     tabIndex={-1}
                     className="outline-none"
                 >
-                    <Error />
+                    <Error imageIndex={Math.floor(Math.random() * 2)} />
                 </main>
 
                 <Footer />
@@ -141,7 +140,7 @@ export function CatchBoundary() {
 
 // Uncaught exception
 type ErrorBoundaryProps = {
-    error: any;
+    error: any
 }
 
 export function ErrorBoundary({ error }: ErrorBoundaryProps) {

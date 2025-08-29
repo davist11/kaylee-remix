@@ -19,34 +19,26 @@ export default function Image({
     className,
     handleLoad,
 }: ImageProps) {
-    const [isLoaded, setIsLoaded] = useState(false)
-
     const src = url.replace(
         'https://images.ctfassets.net/ku95fq526puv/',
         'https://kayleedavis.imgix.net/'
     )
-
-    const onLoad = () => {
-        setIsLoaded(true)
-
-        if (typeof handleLoad === 'function') {
-            handleLoad()
-        }
-    }
 
     return (
         <Imgix
             src={src}
             width={width}
             height={height}
-            className={cx(className, {
-                'bg-black/10': !isLoaded,
-            })}
+            className={cx('bg-black/10', className)}
             imgixParams={{
                 auto: 'format',
                 fit: 'crop',
             }}
-            htmlAttributes={{ alt, onLoad }}
+            htmlAttributes={{
+                alt,
+                onLoad: handleLoad,
+                loading: 'lazy',
+            }}
         />
     )
 }
