@@ -9,11 +9,17 @@ export const GET_PROJECT = gql`
                     json
                 }
                 previewImage {
-                    url
+                    url(transform: { width: 1024, resizeStrategy: FILL })
                 }
                 imagesCollection {
                     images: items {
-                        url
+                        url(
+                            transform: {
+                                width: 1024
+                                resizeStrategy: FILL
+                                format: WEBP
+                            }
+                        )
                         title
                     }
                 }

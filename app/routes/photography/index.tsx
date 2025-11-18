@@ -15,6 +15,7 @@ import Caret from '~/components/svgs/Caret'
 
 type Asset = {
     url: string
+    resizedUrl: string
     title: string
 }
 
@@ -126,14 +127,14 @@ export default function DesignEntry() {
             <h1 className="sr-only">{title}</h1>
 
             <div className="lg:columns-2">
-                {images.map(({ url, title }, index) => (
+                {images.map(({ url, resizedUrl, title }, index) => (
                     <a
                         href={url}
                         key={url}
                         className="block mb-32 lg:mb-16 relative overflow-hidden group"
                         onClick={(e) => handleClick(e, index)}
                     >
-                        <Image url={url} alt={title} width={1000} />
+                        <Image url={resizedUrl} alt={title} width={1000} />
 
                         <div className="absolute top-0 left-0 h-full w-full bg-black/50 transition-opacity opacity-0 group-hover:opacity-100"></div>
                     </a>
