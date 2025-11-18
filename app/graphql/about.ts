@@ -6,7 +6,13 @@ export const GET_ABOUT = gql`
             items {
                 title
                 image {
-                    url
+                    url(
+                        transform: {
+                            width: 1276
+                            resizeStrategy: FILL
+                            format: WEBP
+                        }
+                    )
                 }
                 content {
                     json

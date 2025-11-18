@@ -4,13 +4,20 @@ export const GET_HOMEPAGE = gql`
     query GetHomepage {
         homepageCollection(limit: 1) {
             items {
-                title,
+                title
                 projectsCollection {
                     items {
-                        title,
-                        slug,
+                        title
+                        slug
                         previewImage {
-                            url
+                            url(
+                                transform: {
+                                    width: 830
+                                    height: 530
+                                    resizeStrategy: FILL
+                                    format: WEBP
+                                }
+                            )
                         }
                     }
                 }
